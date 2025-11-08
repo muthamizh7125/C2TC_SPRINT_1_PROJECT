@@ -1,20 +1,17 @@
-package com.tnsif.employeeservice.config;
-
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 @Configuration
+@CrossOrigin(origins = "http://localhost:3000")  // React connection
+public class  EmployeeConfig {
 
-public class EmployeeConfig implements WebMvcConfigurer  {
-
-
-	    @Override
-	    public void addCorsMappings(CorsRegistry registry) {
-	        registry.addMapping("/**") 
-	                .allowedOrigins("http://localhost:3000") 
-	                .allowedMethods("GET", "POST", "PUT", "DELETE") 
-	                .allowedHeaders("*")
-	                .allowCredentials(true); 
-}}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*");
+            }
+        };
+    }
+}
